@@ -14,16 +14,19 @@ func newTestDB(t *testing.T) (*sql.DB, func()) {
 	// in one db.Exec()` call.
 	db, err := sql.Open("mysql", "test_web:pass@/test_snippetbox?parseTime=true&multiStatements=true")
 	if err != nil {
+		t.Log("failed to connect to db")
 		t.Fatal(err)
 	}
 
 	// Read the setup SQL script from file and execute the statements.
 	script, err := ioutil.ReadFile("./testdata/setup.sql")
 	if err != nil {
+		t.Log("failed to find setup script")
 		t.Fatal(err)
 	}
 	_, err = db.Exec(string(script))
 	if err != nil {
+		t.Log("failed to execute setup script")
 		t.Fatal(err)
 	}
 
