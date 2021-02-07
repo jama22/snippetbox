@@ -36,7 +36,7 @@ jobs:
       run: go build -v ./...
   
     - name: Create MySQL user
-      run: mysql -uroot -p${{ secrets.DB_PASSWORD }} < ./ci/scripts/create_user.sql
+      run: mysql --host 127.0.0.1 --port 33306 -uroot -p${{ secrets.DB_PASSWORD }} < ./ci/scripts/create_user.sql
 
     - name: Test
       run: go test -v ./...
