@@ -35,5 +35,8 @@ jobs:
         mysql database: 'some_test' # Optional, default value is "test". The specified database which will be create
         mysql root password: ${{ secrets.RootPassword }} # Required if "mysql user" is empty, default is empty. The root superuser password
 
+    - name: Create MySQL user
+      run: mysql -uroot < ./ci/scripts/create_user.sql
+
     - name: Test
       run: go test -v ./...
