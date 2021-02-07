@@ -33,9 +33,10 @@ jobs:
         collation server: 'utf8_general_ci' # Optional, default value is 'utf8mb4_general_ci'. The '--collation-server' option for mysqld
         mysql version: '8.0' # Optional, default value is "latest". The version of the MySQL
         mysql database: 'snippetbox' # Optional, default value is "test". The specified database which will be create
+        mysql root password: ${{ secrets.RootPassword }} # Required if "mysql user" is empty, default is empty. The root superuser password
 
     - name: Create MySQL user
-      run: mysql -uroot < ./ci/scripts/create_user.sql
+      run: sudo mysql -uroot < ./ci/scripts/create_user.sql
 
     - name: Test
       run: go test -v ./...
