@@ -18,7 +18,7 @@ jobs:
           MYSQL_DATABASE: test
         ## map the "external" 33306 port with the "internal" 3306
         ports:
-          - 33306:3306
+          - 3306:3306
         # Set health checks to wait until mysql database has started (it takes some seconds to start)
         options: >-
           --health-cmd="mysqladmin ping"
@@ -36,7 +36,7 @@ jobs:
       run: go build -v ./...
   
     - name: Create MySQL user
-      run: mysql --host 127.0.0.1 --port 33306 -uroot -p${{ secrets.DB_PASSWORD }} < ./ci/scripts/create_user.sql
+      run: mysql --host 127.0.0.1 --port 3306 -uroot -p${{ secrets.DB_PASSWORD }} < ./ci/scripts/create_user.sql
 
     - name: Test
       run: go test -v ./...
